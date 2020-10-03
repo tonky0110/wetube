@@ -7,7 +7,7 @@ import {
 } from '../controllers/userController';
 import routes from '../routes';
 
-const userRouter = express();
+const userRouter = express.Router();
 
 // userRouter.get(routes.home, users);
 userRouter.get(routes.editProfile, editProfile);
