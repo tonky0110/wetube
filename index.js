@@ -1,4 +1,9 @@
 import express from "express";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import helmet from "helmet";
+import morgan from "morgan";
+
 const app = express();
 
 const PORT = 4000;
@@ -9,16 +14,22 @@ const PORT = 4000;
 const handleListening = () =>
   console.log(`Listening on: http://localhost:${PORT}`);
 
-const between = (req, res, next) => {
-  console.log("Between");
-  next();
+const handleHome = (req, res) => {
+  res.send("Hi home");
 };
-const handleHome = (req, res) => res.send("Hi home");
 
-const handleProfile = (req, res) => res.send("You are on my profile.");
+const handleProfile = (req, res) => {
+  res.send("You are on my profile.");
+};
 
-// app.get("/", between, handleHome);'
-app.use(between);
+// middlware
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(morgan("dev"));
+
+// routes
 app.get("/", handleHome);
 app.get("/profile", handleProfile);
 
