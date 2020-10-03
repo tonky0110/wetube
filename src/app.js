@@ -20,10 +20,6 @@ import routes from './routes';
 
 const app = express();
 
-const handleHome = (req, res) => res.send("Hi home");
-
-const handleProfile = (req, res) => res.send("You are on my profile.");
-
 // middlware
 app.use(helmet());
 app.set('views', 'src/views')
