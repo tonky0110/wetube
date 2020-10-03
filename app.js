@@ -4,9 +4,9 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 
-import {
-    userRouter
-} from './router';
+import globalRouter from './routers/globalRouter';
+import userRouter from './routers/userRouter';
+import videoRouter from './routers/videoRouter';
 
 const app = express();
 
@@ -24,9 +24,8 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 // routes
-app.get("/", handleHome);
-app.get("/profile", handleProfile);
-
+app.use("/", globalRouter);
 app.use('/user', userRouter);
+app.use('/video', videoRouter);
 
 export default app;
