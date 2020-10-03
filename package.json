@@ -4,6 +4,9 @@
   "description": "Cloning Youtube with Vanilla and Node.js",
   "main": "index.js",
   "author": "tonky0110",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "^4.17.1"
   }
