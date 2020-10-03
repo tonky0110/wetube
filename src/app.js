@@ -18,6 +18,9 @@ const handleHome = (req, res) => res.send("Hi home");
 
 const handleProfile = (req, res) => res.send("You are on my profile.");
 
+app.set('views', 'src/views')
+app.set('view engine', 'pug');
+
 // middlware
 app.use(cookieParser());
 app.use(bodyParser.json());
