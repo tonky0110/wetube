@@ -142,5 +142,5 @@ export const deleteVideo = async (req, res) => {
     } catch (error) {
         console.error(error);
     }
-    res.redirect(routes.redirect(routes.home));
+    res.redirect(routes.home);
 }
