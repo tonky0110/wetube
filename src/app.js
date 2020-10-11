@@ -5,7 +5,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 // middlewares
-import { localsMiddleware } from "./middelwares";
+import {
+  localsMiddleware
+} from "./middelwares";
 
 // Routers
 import globalRouter from "./routers/globalRouter";
@@ -22,6 +24,7 @@ app.use(helmet());
 app.set("views", "src/views");
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("static"));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(

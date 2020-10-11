@@ -6,7 +6,7 @@
   "author": "tonky0110",
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/init.js",
-    "dev:assets": "WEBPACK_ENV=development webpack",
+    "dev:assets": "WEBPACK_ENV=development webpack -w",
     "build:assets": "WEBPACK_ENV=production webpack"
   },
   "nodemonConfig": {
@@ -15,6 +15,7 @@
   "dependencies": {
     "@babel/core": "^7.11.6",
     "@babel/node": "^7.10.5",
+    "@babel/polyfill": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
+    "babel-loader": "^8.1.0",
     "css-loader": "^1.0.1",
     "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^14.2.0",
