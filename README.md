@@ -46,3 +46,6 @@ eslint 설치 및 설정
 prettier을 사용하는 경우.
 formatter를 가지고 있기 때문에, eslint가 에러를 표시하지 않기 위해
 npm install eslint-config-prettier를 설치.
+
+webpack, webpack-cli설치
+웹번들러-
