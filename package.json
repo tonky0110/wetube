@@ -10,7 +10,8 @@
     "build:assets": "WEBPACK_ENV=production webpack"
   },
   "nodemonConfig": {
-    "delay": "2000"
+    "delay": "2000",
+    "ignore": ["scss"]
   },
   "dependencies": {
     "@babel/core": "^7.11.6",
