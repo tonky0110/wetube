@@ -1,8 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import session from 'express-session'
 import helmet from "helmet";
 import morgan from "morgan";
+import passport from 'passport';
 
 // middlewares
 import {
@@ -16,6 +18,9 @@ import videoRouter from "./routers/videoRouter";
 
 // Routes
 import routes from "./routes";
+
+//
+import "./passport";
 
 const app = express();
 
@@ -33,6 +38,16 @@ app.use(
   })
 );
 app.use(morgan("dev"));
+
+// session
+app.use(session({
+  secret: process.env.COOKIE_SECRET,
+  resave: true,
+  saveUninitialized: false
+}))
+// 사용자 인증 및 세션.
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(localsMiddleware);
 // routes
