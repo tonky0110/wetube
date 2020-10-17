@@ -9,7 +9,9 @@ import morgan from "morgan";
 import passport from "passport";
 
 // middlewares
-import { localsMiddleware } from "./middelwares";
+import {
+  localsMiddleware
+} from "./middelwares";
 
 // Routers
 import globalRouter from "./routers/globalRouter";
