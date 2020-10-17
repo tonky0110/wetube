@@ -1,15 +1,15 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import session from 'express-session'
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import mongoose from "mongoose";
 import helmet from "helmet";
 import morgan from "morgan";
-import passport from 'passport';
+import passport from "passport";
 
 // middlewares
-import {
-  localsMiddleware
-} from "./middelwares";
+import { localsMiddleware } from "./middelwares";
 
 // Routers
 import globalRouter from "./routers/globalRouter";
@@ -23,6 +23,8 @@ import routes from "./routes";
 import "./passport";
 
 const app = express();
+
+const CookieStore = MongoStore(session);
 
 // middlware
 app.use(helmet());
@@ -40,11 +42,16 @@ app.use(
 app.use(morgan("dev"));
 
 // session
-app.use(session({
-  secret: process.env.COOKIE_SECRET,
-  resave: true,
-  saveUninitialized: false
-}))
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new CookieStore({
+      mongooseConnection: mongoose.connection, // session의 정보를 mongo DB에서 관리하기 위한 connection
+    }),
+  })
+);
 // 사용자 인증 및 세션.
 app.use(passport.initialize());
 app.use(passport.session());

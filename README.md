@@ -49,3 +49,7 @@ npm install eslint-config-prettier를 설치.
 
 webpack, webpack-cli설치
 웹번들러-
+
+6.5 connect-mongo
+몽고DB를 이용해서 세션의 로그인을 저장.
+npm install connect-mongo
