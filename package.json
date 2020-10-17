@@ -12,7 +12,8 @@
   "nodemonConfig": {
     "delay": "2000",
     "ignore": [
-      "scss"
+      ".scss",
+      "static"
     ]
   },
   "dependencies": {
