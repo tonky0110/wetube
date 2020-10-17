@@ -124,7 +124,8 @@ table {
 
 a {
   all: unset;
-  cursor: pointer; }
+  cursor: pointer;
+  color: inherit; }
 
 *,
 input {
