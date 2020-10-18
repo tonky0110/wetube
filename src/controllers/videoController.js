@@ -110,10 +110,14 @@ export const getEditVideo = async (req, res) => {
             } = {}
         } = req;
         const video = await Video.findById(id);
-        res.render("editVideo", {
-            pageTitle: `Edit ${video.title}`,
-            video
-        });
+        if (video.creator === req.user.id) {
+            res.render("editVideo", {
+                pageTitle: `Edit ${video.title}`,
+                video
+            });
+        } else {
+            throw Error("Don't have enough authentication for edit video.");
+        }
     } catch (error) {
         console.error(error);
         res.redirect(routes.home);
@@ -149,15 +153,20 @@ export const postEditVideo = async (req, res) => {
 }
 
 export const deleteVideo = async (req, res) => {
+    const {
+        params: {
+            id
+        } = {}
+    } = req;
     try {
-        const {
-            params: {
-                id: _id
-            } = {}
-        } = req;
-        await Video.findOneAndRemove({
-            _id
-        });
+        const video = await Video.findById(id);
+        if (video.creator === req.user.id) {
+            await Video.findOneAndRemove({
+                _id: id
+            });
+        } else {
+            throw Error("Don't have enough authentication for edit video.");
+        }
     } catch (error) {
         console.error(error);
     }
