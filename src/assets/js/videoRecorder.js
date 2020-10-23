@@ -1,40 +1,42 @@
-const recorderContainer = document.getElementById('jsRecordContainer');
-const recordBtn = document.getElementById('jsRecordBtn');
+const recorderContainer = document.getElementById("jsRecordContainer");
+const recordBtn = document.getElementById("jsRecordBtn");
 const videoPreview = document.getElementById('jsVideoPreview');
 
-const stopRecording = async () => {
-    try {
-        console.log('stopRecording.');
-        recordBtn.innerHTML = 'Start Recording';
-        recordBtn.addEventListener('click', startReCording);
-    } catch (error) {
-        console.error(error);
-        recordBtn.removeEventListener('click', stopRecording)
-    }
+let streamObject;
+
+const startRecording = () => {
+    console.log('startRecording', streamObject);
+    const videoRecorder = new MediaRecorder(streamObject);
+    console.log('videoRecorder', videoRecorder);
+
+    videoRecorder.start();
+    // videoRecorder.addEventListener('')
 }
-const startReCording = async () => {
+const getVideo = async () => {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
             audio: true,
             video: {
-                height: 720,
-                width: 1280
+                width: 1280,
+                height: 720
             }
         });
-        videoPreview.srcObject = stream;
+        streamObject = stream;
+        videoPreview.srcObject = streamObject;
         videoPreview.muted = true;
         videoPreview.play();
         recordBtn.innerHTML = 'Stop Recording';
-        recordBtn.addEventListener('click', stopRecording);
+        startRecording();
     } catch (error) {
         console.error(error);
-        recordBtn.innerHTML = '😟 cant record';
-        recordBtn.removeEventListener('click', startReCording);
+        recordBtn.innerHTML = ''
+    } finally {
+        recordBtn.removeEventListener('click', getVideo);
     }
-}
 
-function init() {
-    recordBtn.addEventListener('click', startReCording);
+}
+const init = () => {
+    recordBtn.addEventListener('click', getVideo);
 }
 
 if (recorderContainer) {
