@@ -65,18 +65,10 @@ AWS 설정.
    - 접속 권한 설정 (기존 정책 직접 연결: S3)
 
 <CORSConfiguration>
- <CORSRule>
-   <AllowedOrigin>http://localhost:4000/</AllowedOrigin>
-   <AllowedMethod>PUT</AllowedMethod>
-   <AllowedMethod>POST</AllowedMethod>
-   <AllowedHeader>*</AllowedHeader>
-  <MaxAgeSeconds>3000</MaxAgeSeconds>
-  <ExposeHeader>x-amz-server-side-encryption</ExposeHeader>
-  <ExposeHeader>x-amz-request-id</ExposeHeader>
-  <ExposeHeader>x-amz-id-2</ExposeHeader>
- </CORSRule>
- <CORSRule>
-   <AllowedOrigin>*</AllowedOrigin>
-   <AllowedMethod>GET</AllowedMethod>
- </CORSRule>
+   <CORSRule>
+     <AllowedOrigin>\*</AllowedOrigin>
+     <AllowedMethod>GET</AllowedMethod>
+     <MaxAgeSeconds>3000</MaxAgeSeconds>
+     <AllowedHeader>Authorization</AllowedHeader>
+   </CORSRule>
 </CORSConfiguration>
