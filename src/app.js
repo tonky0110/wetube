@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import flash from "express-flash";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import mongoose from "mongoose";
@@ -57,6 +58,7 @@ app.use(
     }),
   })
 );
+app.use(flash());
 // 사용자 인증 및 세션.
 app.use(passport.initialize());
 app.use(passport.session());

@@ -18,6 +18,7 @@ export const postJoin = async (req, res, next) => {
     },
   } = req;
   if (password !== password2) {
+    req.flash('error', "Password dont match.");
     res.status(400);
     res.render("join", {
       pageTitle: "Join",
@@ -45,6 +46,8 @@ export const getLogin = (req, res) =>
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
   successRedirect: routes.home,
+  successFlash: 'Welcome',
+  failureFlash: "Can't log in. Check email / password."
 });
 
 export const githubLogin = passport.authenticate("github");
@@ -93,6 +96,7 @@ export const githubLoginCallback = async (
 
 export const logout = (req, res) => {
   // To Do: Process Log Out
+  req.flash('info', "Logged out, see you later.");
   req.logout();
   res.redirect(routes.home);
 };
@@ -118,6 +122,7 @@ export const userDetail = async (req, res) => {
       user,
     });
   } catch (error) {
+    req.flash('error', "User not found.");
     res.redirect(routes.home);
   }
 };
@@ -141,8 +146,10 @@ export const postEditProfile = async (req, res) => {
       email,
       avatarUrl: file ? file.location : req.user.avatarUrl
     });
+    req.flash('success', "Profile updated.")
     res.redirect(routes.me);
   } catch (error) {
+    req.flash('error', "Can't updated profile.")
     console.error(error);
     res.redirect(routes.editProfile);
   }
@@ -163,6 +170,7 @@ export const postChangePassword = async (req, res) => {
   try {
     console.log(`oldPassword: ${oldPassword}, newPassword: ${newPassword}, newPassword1: ${newPassword1}`);
     if (newPassword !== newPassword1) {
+      req.flash('error', "Password don't match.");
       res.status(400);
       res.redirect(`${routes.users}${routes.changePassword}`);
       return;
@@ -170,6 +178,7 @@ export const postChangePassword = async (req, res) => {
     await req.user.changePassword(oldPassword, newPassword1);
     res.redirect(`${routes.users}${routes.me}`);
   } catch (error) {
+    req.flash('error', "Can't change password.");
     console.error(error);
     res.redirect(`${routes.users}${routes.changePassword}`);
   }
