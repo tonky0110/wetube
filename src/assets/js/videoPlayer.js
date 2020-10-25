@@ -86,7 +86,7 @@ function setTotalTime() {
 
     totalTime.innerHTML = totalTimeString;
     setInterval(getCurrentTime, 1000);
-    videoPlayer.currentTime = 300;
+    // videoPlayer.currentTime = 300;
 }
 
 function getCurrentTime() {

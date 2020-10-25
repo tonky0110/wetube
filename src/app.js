@@ -30,7 +30,9 @@ const app = express();
 const CookieStore = MongoStore(session);
 
 // middlware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
 app.set("views", "src/views");
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));

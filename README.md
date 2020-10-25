@@ -53,3 +53,30 @@ webpack, webpack-cli설치
 6.5 connect-mongo
 몽고DB를 이용해서 세션의 로그인을 저장.
 npm install connect-mongo
+
+AWS 설정.
+
+1. S3
+   버킷 생성.
+   버킷 액세스 설정 편집
+
+2. IAM설정.(https://console.aws.amazon.com/iam/home?region=ap-northeast-2#/home)
+   - 계정명 등록 > 프로그램 접근(api)
+   - 접속 권한 설정 (기존 정책 직접 연결: S3)
+
+<CORSConfiguration>
+ <CORSRule>
+   <AllowedOrigin>http://localhost:4000/</AllowedOrigin>
+   <AllowedMethod>PUT</AllowedMethod>
+   <AllowedMethod>POST</AllowedMethod>
+   <AllowedHeader>*</AllowedHeader>
+  <MaxAgeSeconds>3000</MaxAgeSeconds>
+  <ExposeHeader>x-amz-server-side-encryption</ExposeHeader>
+  <ExposeHeader>x-amz-request-id</ExposeHeader>
+  <ExposeHeader>x-amz-id-2</ExposeHeader>
+ </CORSRule>
+ <CORSRule>
+   <AllowedOrigin>*</AllowedOrigin>
+   <AllowedMethod>GET</AllowedMethod>
+ </CORSRule>
+</CORSConfiguration>
