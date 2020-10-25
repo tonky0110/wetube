@@ -89,12 +89,14 @@ export const videoDetail = async (req, res) => {
         const video = await Video.findById(id)
             .populate("creator")
             .populate("comments");
-        console.log('video detail: ', video);
+        // console.log('video detail: ', video);
         res.render("videoDetail", {
             pageTitle: video.title,
             video
         });
     } catch (error) {
+        console.log('2222');
+
         res.redirect(routes.home);
     }
 };
@@ -113,7 +115,8 @@ export const getEditVideo = async (req, res) => {
             } = {}
         } = req;
         const video = await Video.findById(id);
-        if (video.creator === req.user.id) {
+        // console.log(video.creator, req.user.id, typeof video.creator, typeof req.user.id, video.creator === req.user.id);
+        if (String(video.creator) === req.user.id) {
             res.render("editVideo", {
                 pageTitle: `Edit ${video.title}`,
                 video
@@ -150,6 +153,7 @@ export const postEditVideo = async (req, res) => {
         res.redirect(routes.videoDetail(id));
 
     } catch (error) {
+        console.log('111111');
         console.error(error);
         res.redirect(routes.home);
     }

@@ -101,10 +101,17 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const getMe = (req, res) => {
+export const getMe = async (req, res) => {
+  const {
+    user: {
+      id
+    }
+  } = req;
+  const user = await User.findById(id).populate('videos');
+  console.log(user);
   res.render("userDetail", {
     pageTitle: "User Detail",
-    user: req.user,
+    user: user,
   });
 };
 
@@ -168,7 +175,6 @@ export const postChangePassword = async (req, res) => {
     }
   } = req;
   try {
-    console.log(`oldPassword: ${oldPassword}, newPassword: ${newPassword}, newPassword1: ${newPassword1}`);
     if (newPassword !== newPassword1) {
       req.flash('error', "Password don't match.");
       res.status(400);
